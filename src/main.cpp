@@ -1,4 +1,8 @@
 #include "main.hpp"
+#include "GlobalNamespace/MainMenuViewController.hpp"
+#include "UnityEngine/UI/Button.hpp"
+#include "UnityEngine/GameObject.hpp"
+#include "HMUI/CurvedTextMeshPro.hpp"
 
 static ModInfo modInfo; // Mod Data
 
@@ -16,6 +20,12 @@ Configuration& getConfig() {
 
 MAKE_HOOK_MATCH(mainMenuHook, &GlobalNamespace::MainMenuViewController::DidActivate, void, GlobalNamespace::MainMenuViewController *self, bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling){
     mainMenuHook(self,firstActivation,addedToHierarchy,screenSystemEnabling);
+
+    UnityEngine::UI::Button *soloMenuButton = self->dyn__soloButton();
+    UnityEngine::GameObject *gameObject = soloMenuButton->get_gameobject();
+    HMUI::CurvedTextMeshPro *soloMenuText = gameObject->GetComponentInChildren<HMUI::CurvedTextMeshPro *>();
+
+    soloMenuText->SetText("Skill Issue");
 }
 
 // Returns a logger
@@ -34,11 +44,13 @@ extern "C" void setup(ModInfo& info) {
     getLogger().info("Completed setup!");
 }
 
-// Called later on in the game loading - a good time to install function hooks
+// Called later on in the game loading
 extern "C" void load() {
     il2cpp_functions::Init();
 
     getLogger().info("Installing hooks...");
-    // Install our hooks (none defined yet)
+    
+    INSTALL_HOOK(getLogger(), mainMenuHook);
+
     getLogger().info("Installed all hooks!");
 }
