@@ -4,7 +4,7 @@
 #include "UnityEngine/GameObject.hpp"
 #include "HMUI/CurvedTextMeshPro.hpp"
 
-#include "mconfig.hpp"
+#include "ModConfig.hpp"
 
 static ModInfo modInfo; // Mod Data
 
@@ -49,6 +49,8 @@ extern "C" void setup(ModInfo& info) {
 // Called later on in the game loading
 extern "C" void load() {
     il2cpp_functions::Init();
+
+    getModConfig().Init(modInfo);
 
     getLogger().info("Installing hooks...");
     
