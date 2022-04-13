@@ -1,15 +1,24 @@
 #include "main.hpp"
 
-static ModInfo modInfo; // Stores the ID and version of our mod, and is sent to the modloader upon startup
+static ModInfo modInfo; // Mod Data
 
-// Loads the config from disk using our modInfo, then returns it for use
+// General format: MAKE_HOOK_MATCH(HookName, method, method return type, method class pointer, arguments...) { 
+//  HookName(arguments...);
+//  // your code here 
+//}
+
+// Loads the config file
 Configuration& getConfig() {
     static Configuration config(modInfo);
     config.Load();
     return config;
 }
 
-// Returns a logger, useful for printing debug messages
+MAKE_HOOK_MATCH(mainMenuHook, &GlobalNamespace::MainMenuViewController::DidActivate, void, GlobalNamespace::MainMenuViewController *self, bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling){
+    mainMenuHook(self,firstActivation,addedToHierarchy,screenSystemEnabling);
+}
+
+// Returns a logger
 Logger& getLogger() {
     static Logger* logger = new Logger(modInfo);
     return *logger;
