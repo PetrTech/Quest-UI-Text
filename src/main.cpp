@@ -4,6 +4,8 @@
 #include "UnityEngine/GameObject.hpp"
 #include "HMUI/CurvedTextMeshPro.hpp"
 
+#include "mconfig.hpp"
+
 static ModInfo modInfo; // Mod Data
 
 // General format: MAKE_HOOK_MATCH(HookName, method, method return type, method class pointer, arguments...) { 
