@@ -1,0 +1,19 @@
+{
+	"$schema": "https://raw.githubusercontent.com/Lauriethefish/QuestPatcher.QMod/main/QuestPatcher.QMod/Resources/qmod.schema.json",
+	"_QPVersion": "0.1.1",
+	"name": "Quest UI Text",
+	"id": "questtext",
+	"author": "PetrTech",
+	"version": "0.1.0",
+	"packageId": "com.beatgames.beatsaber",
+	"packageVersion": "1.17.1",
+	"description": "This mod allows you to change the text of any UI Text element.",
+	"dependencies": [],
+	"modFiles": [
+		"libquesttext.so"
+	],
+	"libraryFiles": [
+		"libbeatsaber-hook_2_3_2.so"
+	],
+	"fileCopies": []
+}
